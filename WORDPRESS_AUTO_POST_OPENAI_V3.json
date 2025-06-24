@@ -1,0 +1,1091 @@
+{
+  "name": "WORDPRESS AUTO POST OPENAI V3",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1080,
+        160
+      ],
+      "id": "0872fc19-4623-48e7-98cf-3fbdd47e3b00",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OrGy47rPybe-aJU8QoEBSotHIji22ep4_twkVzzKn8U",
+          "mode": "list",
+          "cachedResultName": "Planilha Abnoan",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OrGy47rPybe-aJU8QoEBSotHIji22ep4_twkVzzKn8U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1487334953,
+          "mode": "list",
+          "cachedResultName": "Keyword",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OrGy47rPybe-aJU8QoEBSotHIji22ep4_twkVzzKn8U/edit#gid=1487334953"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -880,
+        160
+      ],
+      "id": "cf7a2fee-6c65-4221-bf13-7b59ae83c8ce",
+      "name": "LER KEYWORDS",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "OfSBMtmedjb1FRIc",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OrGy47rPybe-aJU8QoEBSotHIji22ep4_twkVzzKn8U",
+          "mode": "list",
+          "cachedResultName": "Planilha Abnoan",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OrGy47rPybe-aJU8QoEBSotHIji22ep4_twkVzzKn8U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 613381498,
+          "mode": "list",
+          "cachedResultName": "Produtos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OrGy47rPybe-aJU8QoEBSotHIji22ep4_twkVzzKn8U/edit#gid=613381498"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        0,
+        160
+      ],
+      "id": "aecd88ab-8f22-4a9b-b734-d5169fc2849f",
+      "name": "LER PRODUTOS",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "OfSBMtmedjb1FRIc",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OrGy47rPybe-aJU8QoEBSotHIji22ep4_twkVzzKn8U",
+          "mode": "list",
+          "cachedResultName": "Planilha Abnoan",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OrGy47rPybe-aJU8QoEBSotHIji22ep4_twkVzzKn8U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2063343032,
+          "mode": "list",
+          "cachedResultName": "LINKS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OrGy47rPybe-aJU8QoEBSotHIji22ep4_twkVzzKn8U/edit#gid=2063343032"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        2480,
+        -80
+      ],
+      "id": "135008bb-e64e-40fe-a01b-3e15125c9b26",
+      "name": "LER LINKS",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "OfSBMtmedjb1FRIc",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=TEMA PRINCIPAL (keyword):\n{{ $('LER KEYWORDS').item.json.Keyword }}\n\nObjetivo: Criar uma seção explicativa e útil para ajudar o leitor a entender como escolher a melhor opção antes de apresentar a lista de sugestões.\n\nInstruções:\n\nVocê deve responder a pergunta \"Como escolher [KEYWORD]?\"\n\nRegras para a seção:\n\nComece com uma analogia e uma pergunta.\nUse exemplos do mainstream Brasileiro, use linguagem do cotidiano brasileiro.\nUse um tom conversacional, como se estivesse conversando com um amigo, seja objetivo, e fale do ponto de vista feminino.\nFinalize com uma transição natural para a lista de sugestões, reforçando que agora que o leitor já entende como escolher, pode conferir as opções recomendadas.\nO conteúdo deve ter 100 a 200 palavras para garantir uma leitura fluida e envolvente.\nUse a palavra-chave principal de forma natural.\nNão use negrito ou itálico; o texto deve ser limpo, com pontuação e espaçamentos naturais.\nEvite linguagem técnica ou exageradamente racional. Foque no emocional da escolha do presente.\n\n⚠️ Gere apenas um JSON assim:\n{\n  \"how_to_choose\": \"<h2></h2><p>...</p>\"\n}\n\n✅ Não inclua texto fora do JSON e garanta que o JSON seja válido.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        -80
+      ],
+      "id": "905b95ad-a84a-4672-847a-70f46c8d67d8",
+      "name": "COMO ESCOLHER",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=TEMA PRINCIPAL (keyword):\n{{ $('LER KEYWORDS').item.json.Keyword }}\n\nPRODUTOS:\n{{ $('PRODUTOS').item.json['Nome Produto'] }}\n\nObjetivo: Gerar a estrutura completa para um artigo SEO-friendly com 21 ideias de presentes sobre [KEYWORD].\n\n📌 A estrutura JSON de saída deve conter, obrigatoriamente:\n\n1. \"introduction\":  \n- Um parágrafo introdutório mencionando a quantidade de ideias apresentadas, reforçando que são 21 sugestões e criando conexão com o leitor.\n\n2. \"categoriesList\":  \n- Uma bullet list com as categorias geradas, seguindo o formato:  \n  * [KEYWORD] – [Nome do agrupamento 1]  \n  * [KEYWORD] – [Nome do agrupamento 2]  \n  * [KEYWORD] – [Nome do agrupamento 3]  \n  * [Se houver mais, continue...]  \n\n3. \"transition\":  \n- Um parágrafo curto que faça a transição entre a introdução e a lista de categorias, incentivando o leitor a seguir a leitura.\n\n4. \"categories\":  \n- Um array com as categorias, onde cada categoria terá:  \n  - \"title\": nome da categoria  \n  - \"introduction\": parágrafo curto apresentando a categoria (com a keyword).  \n  - \"products\": um array com os produtos desta categoria, onde cada produto terá:  \n    - \"title\": nome do produto  \n    - \"html\": descrição otimizada em HTML, com parágrafo e 3 benefícios listados em `<ul>`.\n\n---\n\n📌 Regras para gerar as CATEGORIAS:  \n\n- Gere de 3 a 5 categorias para organizar os presentes.\n- Os títulos das categorias devem ser curtos, claros e não repetitivos.\n- A categorização pode ser baseada em tipo, finalidade, preço ou perfil do presenteado.\n- Para cada categoria, inclua um pequeno parágrafo introdutório repetindo a keyword, com o formato:  \n\n[KEYWORD] – [Nome da Categoria]  \n\"Abrindo a nossa categoria de [KEYWORD], temos as opções [breve explicação sobre essa categoria específica]. São escolhas ideais para [motivo pelo qual esses itens são bons para o presenteado], garantindo um presente útil e especial!\"\n\n---\n\n📌 Regras para gerar os PRODUTOS:  \n\n- Cada produto deve ter:  \n  - Título: nome do produto no início da linha.  \n  - Subtítulo: uma frase curta e complementar ao título.  \n  - Descrição: 2 a 3 frases destacando vantagens do produto.  \n  - Lista HTML: três benefícios formatados como `<ul>`, indentados e dentro de um codeblock.  \n\n**Exemplo de formatação da descrição de um produto:**  \n\n1. Caneca personalizada - Uma lembrança cheia de carinho  \nA caneca personalizada é uma das sugestões mais criativas, pois além de ser uma excelente opção para tomar um café quentinho, ela também serve como porta-lápis ou adorno. Além disso, as mensagens personalizadas nesse tipo de produto costumam demonstrar afeto.  \n\n```html\n<ul>\n<li>Confeccionada em porcelana resistente de alta qualidade.</li>\n<li>Permite personalização com frases, imagens ou nomes únicos.</li>\n<li>Transforma momentos simples em lembranças especiais.</li>\n</ul>\n\n📌 Regras gerais:\n\nDistribua os produtos de forma equilibrada nas categorias.\n\nSe houver mais categorias do que produtos, omita categorias vazias.\n\nUse linguagem casual, simples e persuasiva.\n\nO HTML deve ser válido e bem estruturado.\n\nNÃO gere nenhum texto fora do JSON.\n\n📌 Formato EXATO da saída JSON:\n{\n  \"introduction\": \"Texto de introdução...\",\n  \"categoriesList\": [\n    \"* [KEYWORD] – [Categoria 1]\",\n    \"* [KEYWORD] – [Categoria 2]\",\n    \"* [KEYWORD] – [Categoria 3]\"\n  ],\n  \"transition\": \"Texto de transição...\",\n  \"categories\": [\n    {\n      \"title\": \"Nome da Categoria\",\n      \"introduction\": \"Parágrafo introdutório da categoria com a keyword...\",\n      \"products\": [\n        {\n          \"title\": \"Nome do Produto\",\n          \"html\": \"<p>Descrição detalhada do produto...</p>\"\n        }\n      ]\n    }\n  ]\n}\n\n⚠️ Importante:\n\nNÃO gere texto fora do JSON.\n\nO JSON precisa ser bem formatado e válido.\n\nUse a keyword naturalmente ao longo dos textos.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        1740,
+        -80
+      ],
+      "id": "5a63cb13-2f92-49a4-b79c-a70afd1166d6",
+      "name": "AGRUPAMENTO CATEGORIAS",
+      "executeOnce": false,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "Links"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2700,
+        -80
+      ],
+      "id": "02e71618-bedb-486f-ad11-83132382240a",
+      "name": "LINKS"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "Nome Produto"
+            },
+            {
+              "fieldToAggregate": "descrição"
+            },
+            {
+              "fieldToAggregate": "ASIN"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        160,
+        160
+      ],
+      "id": "98edb162-8147-4a1e-85a0-9c2347449e14",
+      "name": "PRODUTOS"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=TEMA PRINCIPAL (keyword):\n{{ $('LER KEYWORDS').item.json.Keyword }}\n\nLINKS INTERNOS:\n{{ $json.Links }}\n\nSeja objetivo e profissional ao criar um trecho de HTML. O trecho deve conter a frase 'Você também pode se interessar por:' como um heading 4, seguida de uma lista de links. Solicite os URLs dos artigos e use-os para criar links do-follow na mesma página. Os nomes dos artigos devem estar em title case, ordenados de A a Z, e inseridos como texto visível e como atributos title dos links. A estrutura do HTML deve ser a seguinte:\n\n<div style=\"background-color: #f5f5f5; padding: 15px;\">\n<h4>Você também pode se interessar por:</h4> <ul> <li><a href=\"URL_DO_ARTIGO_1\" rel=\"dofollow\" title=\"Nome Do Artigo 1\">Nome Do Artigo 1</a></li> <li><a href=\"URL_DO_ARTIGO_2\" rel=\"dofollow\" title=\"Nome Do Artigo 2\">Nome Do Artigo 2</a></li> <li><a href=\"URL_DO_ARTIGO_3\" rel=\"dofollow\" title=\"Nome Do Artigo 3\">Nome Do Artigo 3</a></li> <!-- Mais links podem ser adicionados aqui --> </ul> </div>\n\nCertifique-se de formatar os nomes dos artigos em title case, ordenar os links alfabeticamente de A a Z e manter a frase 'Você também pode se interessar por:' como um heading 4.\n\n✅ Não inclua texto fora do JSON e garanta que o JSON seja válido.\n\n```json\n<div>\n  <h4>Você também pode se interessar por:</h4>\n  <ul>\n    <li><a href=\"URL\">Título do artigo relacionado</a></li>\n    ...\n  </ul>\n</div>\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        2940,
+        -80
+      ],
+      "id": "bc699053-7d7a-4474-8168-092095f56912",
+      "name": "GERENCIADOR DE LINKS",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=TEMA PRINCIPAL (keyword):\n{{ $('LER KEYWORDS').item.json.Keyword }}\n\n📌 Objetivo:\nAtrair buscas complementares por meio de perguntas frequentes ligadas à KEYWORD.\n\n📌 Regras:\n\nGere de 3 a 5 perguntas e respostas objetivas.\n\nPerguntas devem refletir o que as pessoas realmente buscam no Google.\nRespostas com 2 a 4 linhas, diretas e naturais.\nInclua a keyword ou variações de forma orgânica.\nTom acessível e sem jargões.\n\n🎯 Exemplo de perguntas para \"presentes para sogra\"\n\nO que dar de presente para sogra que tem tudo?\nComo escolher presentes úteis para sogra?\nPresentes baratos para sogra são malvistos?\nQuando é melhor dar presente para sogra?\nÉ melhor dar presente personalizado ou prático?\n\n⚠️ Gere apenas um JSON assim:\n{\n  \"faq\": [\n    {\n      \"question\": \"Pergunta 1\",\n      \"answer\": \"Resposta 1\"\n    },\n    ...\n  ]\n}\n\nRegras:\n- As perguntas devem ser comuns para quem busca esse tipo de presente.\n- As respostas devem ser objetivas, claras e úteis.\n- Linguagem acessível e direta.\n- JSON bem estruturado e sem texto fora dele.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        3680,
+        -80
+      ],
+      "id": "90cc5905-3ebd-4018-9a95-a8ce2288a78e",
+      "name": "FAQ",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=TEMA PRINCIPAL (keyword):\n{{ $('LER KEYWORDS').item.json.Keyword }}\n\n📌 Objetivo: Criar uma meta description otimizada para SEO, que aumente a taxa de cliques (CTR) e melhore o ranqueamento nos resultados de busca.\n\n🔹 Instruções:\nGere uma meta description persuasiva e otimizada para um artigo sobre [KEYWORD].\n\n📌 Regras para a saída:\n\nIncluir a palavra-chave principal de forma natural.\nSer objetiva (entre 120 e 160 caracteres) para exibição completa no Google.\nUsar tom convidativo e persuasivo para incentivar o clique.\nGerar curiosidade ou apresentar um benefício claro.\nEvitar clickbait exagerado, mas tornar o texto envolvente.\nJSON limpo, válido e sem texto fora dele.\n\n⚠️ Gere apenas um JSON assim:\n{\n  \"meta_description\": \"Texto da meta description...\"\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        4460,
+        -80
+      ],
+      "id": "b21517e7-715a-4c4e-901f-f3ac71926b82",
+      "name": "Meta Description",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "title": "={{ $json.title }}",
+        "additionalFields": {
+          "content": "={{ $json.content }}",
+          "slug": "={{ $json.slug }}",
+          "status": "draft"
+        }
+      },
+      "type": "n8n-nodes-base.wordpress",
+      "typeVersion": 1,
+      "position": [
+        5480,
+        -80
+      ],
+      "id": "9ad6e30f-26a5-404d-8074-dd697536d307",
+      "name": "Wordpress",
+      "credentials": {
+        "wordpressApi": {
+          "id": "guk1ySn9kgkHz23X",
+          "name": "CONTA FREELANCER"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7bd73c44-ddb6-44d9-b6c3-db3962cc8ef3",
+              "name": "introducao",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        760,
+        -80
+      ],
+      "id": "fd0b4551-1692-45d6-9ad2-9baaf86ae6bb",
+      "name": "intro"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "33ae28ce-0acf-4bc9-b150-221c919201f1",
+              "name": "como_escolher",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1400,
+        -80
+      ],
+      "id": "4df0b239-44dc-4d42-a807-4c1c6af8da36",
+      "name": "escolha"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b1dde6f-aff3-435a-be06-3b38db2a9f89",
+              "name": "categorias",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2100,
+        -80
+      ],
+      "id": "0cff7d3e-ab7a-4120-9e99-a999b2b190b1",
+      "name": "categorias"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6cf9b7b3-032d-4cd3-b6ac-b05c5189def9",
+              "name": "links",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3280,
+        -80
+      ],
+      "id": "a782879d-a0b4-4a17-9ddb-037dc65661b1",
+      "name": "links"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "379542cf-e87d-497d-8ba2-a04b14eb1e11",
+              "name": "faq",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4040,
+        -80
+      ],
+      "id": "e6413be3-6422-42ef-848c-4e5631af0d2c",
+      "name": "faq"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "df0510ce-46d5-4a77-954d-53ab550a7ba5",
+              "name": "meta_description",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4820,
+        -80
+      ],
+      "id": "12b0e9dd-e210-4e9b-81bd-e63fbebff6d4",
+      "name": "meta"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.introducao || $input.first().json.output;\n\nif (!raw) {\n  throw new Error(\"Campo 'introduction' ou 'output' está vazio ou indefinido.\");\n}\n\n// Remove blocos ```json ... ``` e espaçamentos extras\nconst cleanString = raw\n  .replace(/^\\s*```json\\s*/i, '')   // remove abertura ```json com espaços antes\n  .replace(/^\\s*```\\s*/i, '')       // ou ``` simples\n  .replace(/\\s*```\\s*$/i, '')       // remove fechamento ``` com espaços depois\n  .trim();\n\nlet parsed;\ntry {\n  parsed = JSON.parse(cleanString);\n} catch (e) {\n  throw new Error(\"Erro ao fazer parse do JSON: \" + e.message + \" Conteúdo recebido: \" + cleanString);\n}\n\nreturn [\n  {\n    json: parsed\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        -80
+      ],
+      "id": "8571b3c7-03f6-4208-9909-e4ff3d9842b7",
+      "name": "FORMAT INTRO",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.como_escolher || $input.first().json.output;\n\nif (!raw) {\n  throw new Error(\"Campo 'how_to_choose' ou 'output' está vazio ou indefinido.\");\n}\n\n// Remove blocos ```json ... ``` e espaçamentos extras\nconst cleanString = raw\n  .replace(/^\\s*```json\\s*/i, '')   // remove abertura ```json com espaços antes\n  .replace(/^\\s*```\\s*/i, '')       // ou ``` simples\n  .replace(/\\s*```\\s*$/i, '')       // remove fechamento ``` com espaços depois\n  .trim();\n\n\nlet parsed;\ntry {\n  parsed = JSON.parse(cleanString);\n} catch (e) {\n  throw new Error(\"Erro ao fazer parse do JSON: \" + e.message + \" Conteúdo recebido: \" + cleanString);\n}\n\nreturn [\n  {\n    json: parsed\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1580,
+        -80
+      ],
+      "id": "b5fd32f3-4570-4962-85fb-df0e29a58782",
+      "name": "FORMAT CHOOSE"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.categorias || $input.first().json.output;\n\nif (!raw) {\n  throw new Error(\"Campo 'categories' ou 'output' está vazio ou indefinido.\");\n}\n\n// Remove blocos ```json ... ``` e espaçamentos extras\nconst cleanString = raw\n  .replace(/^\\s*```json\\s*/i, '')   // remove abertura ```json com espaços antes\n  .replace(/^\\s*```\\s*/i, '')       // ou ``` simples\n  .replace(/\\s*```\\s*$/i, '')       // remove fechamento ``` com espaços depois\n  .trim();\n\nlet parsed;\ntry {\n  parsed = JSON.parse(cleanString);\n} catch (e) {\n  throw new Error(\"Erro ao fazer parse do JSON: \" + e.message + \" Conteúdo recebido: \" + cleanString);\n}\n\nreturn [\n  {\n    json: parsed\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2280,
+        -80
+      ],
+      "id": "cc74fc89-ef80-42f7-9512-6ff58e53bbef",
+      "name": "FORMAT CATEGORIES"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.links || $input.first().json.output;\n\n// Remove blocos ```html, ```json, ou ``` apenas\nif (!raw) {\n  throw new Error(\"Campo 'links' ou 'output' está vazio ou indefinido.\");\n}\n\n// Remove blocos ```json ... ``` e espaçamentos extras\nconst cleanString = raw\n  .replace(/^\\s*```json\\s*/i, '')   // remove abertura ```json com espaços antes\n  .replace(/^\\s*```\\s*/i, '')       // ou ``` simples\n  .replace(/\\s*```\\s*$/i, '')       // remove fechamento ``` com espaços depois\n  .trim();\n\nreturn [\n  {\n    json: {\n      links: cleanString\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3480,
+        -80
+      ],
+      "id": "7cd7c68a-8069-40f6-8d32-1d60d30f1914",
+      "name": "FORMAT LINKS"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.faq || $input.first().json.output;\n\n// Remove blocos ```json ... ```\nif (!raw) {\n  throw new Error(\"Campo 'faq' ou 'output' está vazio ou indefinido.\");\n}\n\n// Remove blocos ```json ... ``` e espaçamentos extras\nconst cleanString = raw\n  .replace(/^\\s*```json\\s*/i, '')   // remove abertura ```json com espaços antes\n  .replace(/^\\s*```\\s*/i, '')       // ou ``` simples\n  .replace(/\\s*```\\s*$/i, '')       // remove fechamento ``` com espaços depois\n  .trim();\n\n\nlet parsed;\ntry {\n  parsed = JSON.parse(cleanString);\n} catch (e) {\n  throw new Error(\"Erro ao fazer parse do JSON: \" + e.message + \" Conteúdo recebido: \" + cleanString);\n}\n\nreturn [\n  {\n    json: parsed\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4260,
+        -80
+      ],
+      "id": "f6d8cd71-9e3d-404f-8b79-be32b9b2f6cf",
+      "name": "FORMAT FAQ"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.meta_description || $input.first().json.output;\n\nif (!raw) {\n  throw new Error(\"Campo 'meta_description' ou 'output' está vazio ou indefinido.\");\n}\n\n// Remove blocos ```json ... ``` e espaçamentos extras\nconst cleanString = raw\n  .replace(/^\\s*```json\\s*/i, '')   // remove abertura ```json com espaços antes\n  .replace(/^\\s*```\\s*/i, '')       // ou ``` simples\n  .replace(/\\s*```\\s*$/i, '')       // remove fechamento ``` com espaços depois\n  .trim();\n\n// Tenta identificar e extrair apenas o JSON entre { ... }\nconst match = cleanString.match(/{[\\s\\S]*}/);\n\nif (!match) {\n  throw new Error(\"Nenhum JSON encontrado dentro do conteúdo recebido. Conteúdo: \" + cleanString);\n}\n\nlet parsed;\ntry {\n  parsed = JSON.parse(match[0]);\n} catch (e) {\n  throw new Error(\"Erro ao fazer parse do JSON: \" + e.message + \" Conteúdo: \" + match[0]);\n}\n\nreturn [\n  {\n    json: parsed\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5040,
+        -80
+      ],
+      "id": "c660d083-ca97-4242-912e-01616b811e90",
+      "name": "FORMAT META"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = {\n  title: $('FORMAT TITLE').first().json.title,\n  meta_description: $('FORMAT META').first().json.meta_description,\n  introduction: $('FORMAT INTRO').first().json.introduction,\n  how_to_choose: $('FORMAT CHOOSE').first().json.how_to_choose,\n  categoriesList: $('FORMAT CATEGORIES').first().json.categoriesList,\n  transition: $('FORMAT CATEGORIES').first().json.transition,\n  categories: $('FORMAT CATEGORIES').first().json.categories,\n  internal_links: $('FORMAT LINKS').first().json.links,\n  faq: $('FORMAT FAQ').first().json.faq,\n};\n\n// 🔗 Slug SEO friendly\nconst slug = data.title\n  .toLowerCase()\n  .normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\")\n  .replace(/[^a-z0-9\\s-]/g, '')\n  .trim()\n  .replace(/\\s+/g, '-');\n\n// 🔥 Monta o content\nconst content = `\n\n${data.introduction}\n\n<p>${data.transition}</p>\n\n${data.categoriesList.length ? `\n<h2>Lista de Categorias</h2>\n<ul>\n  ${data.categoriesList.map(item => `<li>${item}</li>`).join('')}\n</ul>\n` : ''}\n\n<section>\n  ${data.how_to_choose}\n</section>\n\n${data.categories.map(cat => `\n  <section>\n    <h2>${cat.title}</h2>\n    <p>${cat.introduction}</p>\n    ${cat.products.map(prod => `\n      <div style=\"border:1px solid #ddd;padding:16px;margin:16px 0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.05);max-width:700px;\">\n        <h3>${prod.title}</h3>\n        ${prod.html}\n      </div>\n    `).join('')}\n  </section>\n`).join('')}\n\n${data.internal_links}\n\n<section>\n  <h2>Perguntas Frequentes</h2>\n  ${data.faq.map(f => `\n    <div>\n      <h3>${f.question}</h3>\n      <p>${f.answer}</p>\n    </div>\n  `).join('')}\n</section>\n`;\n\n// ✅ Saída pronta\nreturn [\n  {\n    json: {\n      title: data.title,\n      slug: slug,\n      content: content,\n      meta_description: data.meta_description\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5260,
+        -80
+      ],
+      "id": "0a61a643-ea86-41d9-8f9a-d8023e46483b",
+      "name": "FINAL"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Gere uma introdução otimizada para SEO para um artigo de lista com 21 ideias de presentes. O título do artigo será \"[KEYWORD]\" baseado na keyword abaixo. Use linguagem que gere curiosidade e incentive o clique, mantendo uma estrutura SEO-friendly.\n\nKeyword: \"{{ $json.Keyword }}\"\n\nFormato de saída (obrigatório):\n{\n  \"title\": \"Título gerado aqui\"\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -660,
+        160
+      ],
+      "id": "7186f04c-a381-4bea-8e28-acf0996fc159",
+      "name": "CRIAR TÍTULO",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0973b6fb-d616-4323-93be-12fa280dfb65",
+              "name": "title",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -320,
+        160
+      ],
+      "id": "7175a3f6-984d-401d-aff0-6e6c361d0e63",
+      "name": "titulo"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.title || $input.first().json.output;\n\n// Remove blocos ```json ... ```\nconst cleanString = raw\n  .replace(/^```json\\s*/i, '')\n  .replace(/```$/i, '')\n  .trim();\n\nlet parsed;\ntry {\n  parsed = JSON.parse(cleanString);\n} catch (e) {\n  throw new Error(\"Erro ao fazer parse do JSON: \" + e.message + \" Conteúdo recebido: \" + cleanString);\n}\n\nreturn [\n  {\n    json: parsed\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        160
+      ],
+      "id": "4766ed95-9116-492a-be35-73feb8f4d65f",
+      "name": "FORMAT TITLE"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Objetivo: Criar uma introdução envolvente, otimizada para SEO, que prenda a atenção do leitor e incentive a continuar a leitura.\n\nInstruções:\nGere uma introdução persuasiva e otimizada para um artigo de blog sobre {{ $('LER KEYWORDS').item.json.Keyword }}.\nColoque sua palavra-chave-alvo no início da primeira frase.\n\nRegras para a introdução:\n\nNão use negrito, itálico ou qualquer outro tipo de formatação especial. O texto deve estar completamente limpo, apenas com pontuação e espaçamentos naturais.\nSeja casual, como se estivesse tendo uma conversa com o leitor.\nUse exemplos do mainstream Brasileiro, use linguagem do cotidiano brasileiro.\nComece com uma pergunta ou frase de impacto para engajar o leitor.\nExplique rapidamente a importância do tema e por que o leitor deve continuar lendo.\nInclua a palavra-chave principal de forma natural na primeira linha do primeiro paragrafo.\nMantenha o tom amigável e acessível.\nUse um CTA (Call to Action) no final para incentivar a leitura da lista/das dicas.\nLimite o texto a 100-150 palavras para manter a fluidez.\n\n✅ A introdução deve:\n- Ser escrita em HTML usando <p>...</p>.\n\n⚠️ Gere apenas um JSON assim:\n{\n  \"introduction\": \"<p>...</p>\"\n}\n\n✅ Não inclua texto fora do JSON e certifique-se que ele é válido.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        440,
+        -80
+      ],
+      "id": "5346eab9-00b8-4633-91e1-6962e1d6daac",
+      "name": "INTRODUÇÃO",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -640,
+        380
+      ],
+      "id": "c6cfd523-8e0e-4381-94a6-ed111a49b028",
+      "name": "OpenAI Chat Model"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        140
+      ],
+      "id": "57786c35-d4c6-48a8-8d49-9bc02eefd44a",
+      "name": "OpenAI Chat Model1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1120,
+        140
+      ],
+      "id": "b3b11d87-bbec-4377-abd7-fe85e2606956",
+      "name": "OpenAI Chat Model2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1740,
+        60
+      ],
+      "id": "186c6722-9c80-46b1-8f7a-fd44c6cf363d",
+      "name": "OpenAI Chat Model3"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        2940,
+        60
+      ],
+      "id": "6e07eaaf-fd1b-4831-a45b-cff145d8bdf5",
+      "name": "OpenAI Chat Model4"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        3720,
+        140
+      ],
+      "id": "eb49c192-1ac9-44c6-bfb9-3ac943c9c22f",
+      "name": "OpenAI Chat Model5"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        4500,
+        140
+      ],
+      "id": "2f3ff528-db76-40f1-a6da-afd6ec0405c0",
+      "name": "OpenAI Chat Model6"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "LER KEYWORDS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LER KEYWORDS": {
+      "main": [
+        [
+          {
+            "node": "CRIAR TÍTULO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LER PRODUTOS": {
+      "main": [
+        [
+          {
+            "node": "PRODUTOS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LER LINKS": {
+      "main": [
+        [
+          {
+            "node": "LINKS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "COMO ESCOLHER": {
+      "main": [
+        [
+          {
+            "node": "escolha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AGRUPAMENTO CATEGORIAS": {
+      "main": [
+        [
+          {
+            "node": "categorias",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LINKS": {
+      "main": [
+        [
+          {
+            "node": "GERENCIADOR DE LINKS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PRODUTOS": {
+      "main": [
+        [
+          {
+            "node": "INTRODUÇÃO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FAQ": {
+      "main": [
+        [
+          {
+            "node": "faq",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GERENCIADOR DE LINKS": {
+      "main": [
+        [
+          {
+            "node": "links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta Description": {
+      "main": [
+        [
+          {
+            "node": "meta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "intro": {
+      "main": [
+        [
+          {
+            "node": "FORMAT INTRO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "escolha": {
+      "main": [
+        [
+          {
+            "node": "FORMAT CHOOSE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "categorias": {
+      "main": [
+        [
+          {
+            "node": "FORMAT CATEGORIES",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "links": {
+      "main": [
+        [
+          {
+            "node": "FORMAT LINKS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "faq": {
+      "main": [
+        [
+          {
+            "node": "FORMAT FAQ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "meta": {
+      "main": [
+        [
+          {
+            "node": "FORMAT META",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FORMAT INTRO": {
+      "main": [
+        [
+          {
+            "node": "COMO ESCOLHER",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FORMAT CHOOSE": {
+      "main": [
+        [
+          {
+            "node": "AGRUPAMENTO CATEGORIAS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FORMAT CATEGORIES": {
+      "main": [
+        [
+          {
+            "node": "LER LINKS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FORMAT LINKS": {
+      "main": [
+        [
+          {
+            "node": "FAQ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FORMAT FAQ": {
+      "main": [
+        [
+          {
+            "node": "Meta Description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FORMAT META": {
+      "main": [
+        [
+          {
+            "node": "FINAL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FINAL": {
+      "main": [
+        [
+          {
+            "node": "Wordpress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CRIAR TÍTULO": {
+      "main": [
+        [
+          {
+            "node": "titulo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "titulo": {
+      "main": [
+        [
+          {
+            "node": "FORMAT TITLE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FORMAT TITLE": {
+      "main": [
+        [
+          {
+            "node": "LER PRODUTOS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INTRODUÇÃO": {
+      "main": [
+        [
+          {
+            "node": "intro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "CRIAR TÍTULO",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "INTRODUÇÃO",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "COMO ESCOLHER",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AGRUPAMENTO CATEGORIAS",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "GERENCIADOR DE LINKS",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "FAQ",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Meta Description",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ac90b254-a416-4b38-823b-08982c2c3094",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "bc11502a9ceca1112583bf2aabc3cfc84bb56b28d7ae4007728b3d3d06b485db"
+  },
+  "id": "NW6rP8G4T5vSCQ2Y",
+  "tags": []
+}
